@@ -114,7 +114,6 @@ for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
 const finArray = decArray
   .map((i) => i.toString(16).toUpperCase())
   .map((i) => (i.length == 1 ? "0" + i : i)); //leftpad
-console.log(hexArray, finArray);
 
 //make a buffer
 const buffer = Buffer.from(finArray.join(""), "hex");
