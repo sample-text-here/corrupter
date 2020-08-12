@@ -24,9 +24,11 @@ process.argv.forEach((i, x) => {
   }
 });
 
+console.log(settings);
+
 //detect errors in settings
 //is rock an integer?
-if (settings.rock !== Math.floor(settings.rock)) {
+if (settings.rock != Math.floor(settings.rock)) {
   throw new Error("Rock is not an integer");
 }
 
@@ -36,7 +38,7 @@ if (settings.rock < 0) {
 }
 
 //is protect an integer?
-if (settings.protect !== Math.floor(settings.protect)) {
+if (settings.protect != Math.floor(settings.protect)) {
   throw new Error("Protect is not an integer");
 }
 
@@ -46,7 +48,7 @@ if (settings.protect < 0) {
 }
 
 //is enprot an integer?
-if (settings.enprot !== Math.floor(settings.enprot)) {
+if (settings.enprot != Math.floor(settings.enprot)) {
   throw new Error("Enprot is not an integer");
 }
 
