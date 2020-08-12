@@ -26,6 +26,27 @@ process.argv.forEach((i, x) => {
   }
 });
 
+//i have no idea how this works.
+//it's a seeded random number generator
+function seedRnd(str) {
+  for (var i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
+    (h = Math.imul(h ^ str.charCodeAt(i), 3432918353)),
+      (h = (h << 13) | (h >>> 19));
+  h = Math.imul(h ^ (h >>> 16), 2246822507);
+  h = Math.imul(h ^ (h >>> 13), 3266489909);
+  h = (h ^= h >>> 16) >>> 0;
+  return function () {
+    var t = (h += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+//return a generator
+//use math.random if you didn't supply a seed
+const rnd = seedRnd(Math.random().toString() || settings.seed);
+
 //detect errors in settings
 //is rock an integer?
 if (settings.rock != Math.floor(settings.rock)) {
@@ -91,9 +112,9 @@ const decArray = hexArray.map((i) => parseInt(i, 16));
 
 //loop over array of characters
 for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
-  if (Math.random() < settings.temp) {
+  if (rnd() < settings.temp) {
     //choose a random number between -rock and rock
-    let random = settings.rock - Math.floor(Math.random() * settings.rock * 2);
+    let random = settings.rock - Math.floor(rnd() * settings.rock * 2);
 
     //add it to the decArray value
     decArray[i] += random;
