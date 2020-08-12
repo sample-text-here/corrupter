@@ -2,7 +2,8 @@
 let settings = {
   temp: 0.1,
   rock: 3,
-  protect: 8,
+  protect: 32,
+  enprot: 8,
 };
 
 //require fs and path module
@@ -44,6 +45,16 @@ if (settings.protect < 0) {
   throw new Error("Protect is less than 0");
 }
 
+//is enprot an integer?
+if (settings.enprot !== Math.floor(settings.enprot)) {
+  throw new Error("Enprot is not an integer");
+}
+
+//is enprot more than 0?
+if (settings.enprot < 0) {
+  throw new Error("Enprot is less than 0");
+}
+
 //is rock too high (over 255)?
 if (settings.rock > 255) {
   throw new Error("Rock is too high");
@@ -77,7 +88,7 @@ const hexArray = file.toString("hex").match(/.{2}/g);
 const decArray = hexArray.map((i) => parseInt(i, 16));
 
 //loop over array of characters
-for (let i = settings.protect; i < decArray.length; i++) {
+for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
   if (Math.random() < settings.temp) {
     //choose a random number between -rock and rock
     let random = settings.rock - Math.floor(Math.random() * settings.rock * 2);
