@@ -16,6 +16,8 @@ process.argv.forEach((i, x) => {
     if (i.includes("=")) {
       //if it matchs key=value, then set the key in settings to value
       let tmp = i.split("=");
+      //hacky way to convert to number if possble
+      if (+tmp[1] == tmp[1]) tmp[1] = +tmp[1];
       settings[tmp[0]] = tmp[1];
     } else {
       //if it does not match key=value, it's the file name
@@ -23,8 +25,6 @@ process.argv.forEach((i, x) => {
     }
   }
 });
-
-console.log(settings);
 
 //detect errors in settings
 //is rock an integer?
@@ -90,7 +90,6 @@ const hexArray = file.toString("hex").match(/.{2}/g);
 const decArray = hexArray.map((i) => parseInt(i, 16));
 
 //loop over array of characters
-console.log(settings);
 for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
   if (Math.random() < settings.temp) {
     //choose a random number between -rock and rock
@@ -112,7 +111,10 @@ for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
 }
 
 //convert back to hex
-const finArray = decArray.map((i) => i.toString(16).toUpperCase());
+const finArray = decArray
+  .map((i) => i.toString(16).toUpperCase())
+  .map((i) => (i.length == 1 ? "0" + i : i)); //leftpad
+console.log(hexArray, finArray);
 
 //make a buffer
 const buffer = Buffer.from(finArray.join(""), "hex");
