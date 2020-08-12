@@ -16,7 +16,7 @@ process.argv.forEach((i, x) => {
     if (i.includes("=")) {
       //if it matchs key=value, then set the key in settings to value
       let tmp = i.split("=");
-      settings[tmp[0]] == tmp[1];
+      settings[tmp[0]] = tmp[1];
     } else {
       //if it does not match key=value, it's the file name
       settings["file"] = i;
@@ -88,6 +88,7 @@ const hexArray = file.toString("hex").match(/.{2}/g);
 const decArray = hexArray.map((i) => parseInt(i, 16));
 
 //loop over array of characters
+console.log(settings);
 for (let i = settings.protect; i < decArray.length - settings.enprot; i++) {
   if (Math.random() < settings.temp) {
     //choose a random number between -rock and rock
