@@ -1,4 +1,4 @@
-# Corrupter - by lucas (sample-text-here)
+# Corrupter - by sample-text-here
 
 This program requires no dependencies. It is a cli tool to corrupt files.
 
